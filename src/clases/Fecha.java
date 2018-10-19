@@ -3,25 +3,37 @@ package clases;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Fecha {
-    private SimpleDateFormat simpleDateFormat;
-    private Date date;     
-    
+public class Fecha {   
     private String dia;
     private String mes;
     private String ano;
+    private String horas;
+    private String minutos;
+    private String segundos;
+    
+    private Date date;
+    private SimpleDateFormat simpleDateFormat; 
 
-    public Fecha() {                
-        date = new Date();        
+    public Fecha() {
+        this.date = new Date();                
         
-        simpleDateFormat = new SimpleDateFormat("dd");
-        this.dia = simpleDateFormat.format(date).toString();
+        this.simpleDateFormat = new SimpleDateFormat("dd");
+        this.dia = this.simpleDateFormat.format(date).toString();
         
-        simpleDateFormat = new SimpleDateFormat("MM");
-        this.mes = simpleDateFormat.format(date).toString();
+        this.simpleDateFormat = new SimpleDateFormat("MM");
+        this.mes = this.simpleDateFormat.format(date).toString();
         
-        simpleDateFormat = new SimpleDateFormat("yyyy");
-        this.ano = simpleDateFormat.format(date).toString();
+        this.simpleDateFormat = new SimpleDateFormat("yyyy");
+        this.ano = this.simpleDateFormat.format(date).toString();
+        
+        this.simpleDateFormat = new SimpleDateFormat("HH");
+        this.horas = this.simpleDateFormat.format(date).toString();
+        
+        this.simpleDateFormat = new SimpleDateFormat("mm");
+        this.minutos = this.simpleDateFormat.format(date).toString();
+        
+        this.simpleDateFormat = new SimpleDateFormat("ss");
+        this.segundos = this.simpleDateFormat.format(date).toString();
     }
 
     public String getDia() {
@@ -46,5 +58,34 @@ public class Fecha {
 
     public void setAno(String ano) {
         this.ano = ano;
+    }
+
+    public String getHoras() {
+        return horas;
+    }
+
+    public void setHoras(String horas) {
+        this.horas = horas;
+    }
+
+    public String getMinutos() {
+        return minutos;
+    }
+
+    public void setMinutos(String minutos) {
+        this.minutos = minutos;
+    }
+
+    public String getSegundos() {
+        return segundos;
+    }
+
+    public void setSegundos(String segundos) {
+        this.segundos = segundos;
+    }
+
+    public String getFechaCompleta() {
+        String fechaCompleta = this.dia + "/" + this.mes + "/" + this.ano + " " + this.horas + ":" + this.minutos + ":" + this.segundos;
+        return fechaCompleta;
     }
 }
