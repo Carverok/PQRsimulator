@@ -1,5 +1,7 @@
 package Formularios;
 
+import java.awt.Dialog;
+
 public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
@@ -137,6 +139,7 @@ public class MainFrame extends javax.swing.JFrame {
         CrearPQRFrame crearPQRFrame = new CrearPQRFrame();
         crearPQRFrame.setResizable(false);
         crearPQRFrame.setLocationRelativeTo(null);
+        crearPQRFrame.setAlwaysOnTop(true);
         crearPQRFrame.show();
     }//GEN-LAST:event_btnCrearPQRActionPerformed
 
@@ -144,6 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
         VerPQRsFrame verPQRsFrame = new VerPQRsFrame();
         verPQRsFrame.setResizable(false);
         verPQRsFrame.setLocationRelativeTo(null);
+        verPQRsFrame.setAlwaysOnTop(true);
         verPQRsFrame.show();
     }//GEN-LAST:event_btnListarPQRActionPerformed
 

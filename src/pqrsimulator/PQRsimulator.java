@@ -1,6 +1,7 @@
 package pqrsimulator;
 
 import Formularios.MainFrame;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 public class PQRsimulator {  
 

@@ -1,21 +1,97 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Formularios;
 
-/**
- *
- * @author Nacho
- */
-public class CrearPQRFrame extends javax.swing.JFrame {
+import clases.Fecha;
+import clases.PQR;
+import clases.Vector;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form CrearPQRFrame
-     */
+public class CrearPQRFrame extends javax.swing.JFrame {
+    
+    private final String EMPTY_CHARACTER = "";
+    private final String ERROR_MESSAGE = "Por favor complete todos los campos.";
+    private final String ERROR_TITLE = "Error";
+    private final String SUCCESS_MESSAGE = "PQR almacenada correctamente.";
+    private final String SUCCESS_TITLE = "Información";
+    private final int CERO = 0;
+    private int UNO = 1;
+    
+    private PQR pqr;
+    private Vector vector;    
+    
     public CrearPQRFrame() {
         initComponents();
+        
+        this.pqr = new PQR();
+        this.vector = new Vector();
+    }
+    
+    public void limpiarCampos() {
+        txtNombreOjeto.setText(this.EMPTY_CHARACTER);
+        txtNombreDestino.setText(this.EMPTY_CHARACTER);
+        txtDescripcion.setText(this.EMPTY_CHARACTER);
+        txtNombreOrigen.setText(this.EMPTY_CHARACTER);
+        txtNombreOjeto.requestFocus();
+    }
+    
+    public boolean verificarCampos() {
+        boolean result = true;
+        
+        if (txtNombreOjeto.getText().compareTo(this.EMPTY_CHARACTER) == this.CERO
+                || txtNombreDestino.getText().compareTo(this.EMPTY_CHARACTER) == this.CERO
+                || txtDescripcion.getText().compareTo(this.EMPTY_CHARACTER) == this.CERO
+                || txtNombreOrigen.getText().compareTo(this.EMPTY_CHARACTER) == this.CERO) {
+            result = false;
+        }
+        
+        return result;
+    }
+    
+    public void obtenerPQR(PQR objetoPQR){
+        Fecha fecha = new Fecha();
+        objetoPQR = new PQR();
+        
+        objetoPQR.setNombreObjeto(txtNombreOjeto.getText());
+        objetoPQR.setNombreDestino(txtNombreDestino.getText());
+        objetoPQR.setDescripcion(txtDescripcion.getText());
+        objetoPQR.setEstado(cbxEstado.getSelectedItem().toString());
+        objetoPQR.setNombreOrigen(txtNombreOrigen.getText());
+        objetoPQR.setFecha(fecha);
+    }
+    
+    public void agregarPQR(Vector objetoVector, PQR objetoPQR) {
+        if (objetoVector.getTamano() == this.CERO){
+            objetoVector.setTamano(this.UNO);            
+            objetoVector.setPQRs(this.CERO, objetoPQR);
+                        
+            for (int i=0; i<objetoVector.getTamano(); i++){            
+                System.out.println("getNombreObjeto: " + objetoVector.getPQRs(i).getNombreObjeto());
+                System.out.println("getNombreDestino: " + objetoVector.getPQRs(i).getNombreDestino());
+                System.out.println("getDescripcion: " + objetoVector.getPQRs(i).getDescripcion());
+                System.out.println("getEstado: " + objetoVector.getPQRs(i).getEstado());
+                System.out.println("getNombreOrigen: " + objetoVector.getPQRs(i).getNombreOrigen());
+                //System.out.println(objetoVector.getPQRs(i).getFecha().getFechaCompleta());
+                System.out.println("\n");
+            }
+            
+            return;
+        }
+        
+        int tamano = objetoVector.getTamano();
+        Vector vectorTemporal = new Vector();
+        vectorTemporal.setTamano(tamano);
+        
+        for (int i=0; i<objetoVector.getTamano(); i++){
+            vectorTemporal.setPQRs(i, objetoVector.getPQRs(i));            
+        }
+        
+        objetoVector = new Vector();
+        objetoVector.setTamano(tamano + this.UNO);
+        
+        for (int i=0; i<vectorTemporal.getTamano() - this.UNO; i++){
+            objetoVector.setPQRs(i, vectorTemporal.getPQRs(i));            
+        }
+        
+        objetoVector.setPQRs(tamano + this.UNO, vectorTemporal.getPQRs(tamano + this.UNO));                
     }
 
     /**
@@ -27,21 +103,163 @@ public class CrearPQRFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblTitulo = new javax.swing.JLabel();
+        lblSubtitulo = new javax.swing.JLabel();
+        lblNombreObjeto = new javax.swing.JLabel();
+        lblNombreDestino = new javax.swing.JLabel();
+        lblDescripcion = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        lblNombreOrigen = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        txtNombreOjeto = new javax.swing.JTextField();
+        txtNombreDestino = new javax.swing.JTextField();
+        txtNombreOrigen = new javax.swing.JTextField();
+        cbxEstado = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        lblTitulo.setText("FORMULARIO DE CREACIÓN DE PQRs");
+
+        lblSubtitulo.setText("Por favor complete los siguientes campos:");
+
+        lblNombreObjeto.setText("Nombre persona responsable de la PQR");
+
+        lblNombreDestino.setText("Nombre persona a la que dirige la PQR");
+
+        lblDescripcion.setText("Descripción de la PQR");
+
+        lblEstado.setText("Estado de la PQR");
+
+        lblNombreOrigen.setText("Firma");
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombreObjeto)
+                                    .addComponent(lblNombreDestino)
+                                    .addComponent(txtNombreOjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(258, 258, 258))
+                            .addComponent(lblDescripcion)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEstado)
+                            .addComponent(txtNombreOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(44, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNombreOrigen)
+                            .addComponent(lblSubtitulo))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(171, 171, 171))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addGap(174, 174, 174))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSubtitulo)
+                .addGap(23, 23, 23)
+                .addComponent(lblNombreObjeto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreOjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblNombreDestino)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblDescripcion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblEstado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblNombreOrigen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombreOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (!verificarCampos()) {
+            JOptionPane.showMessageDialog(rootPane, this.ERROR_MESSAGE, this.ERROR_TITLE, JOptionPane.ERROR_MESSAGE );
+            return;
+        }
+        
+        this.pqr = new PQR();
+        obtenerPQR(this.pqr);
+        agregarPQR(this.vector, this.pqr);
+        
+        JOptionPane.showMessageDialog(rootPane, this.SUCCESS_MESSAGE, this.SUCCESS_TITLE, JOptionPane.INFORMATION_MESSAGE);
+        
+//        for (int i=0; i<this.vector.getTamano(); i++){
+//            System.out.println(this.vector.getPQRs(i).getNombreObjeto());
+//            System.out.println(this.vector.getPQRs(i).getNombreDestino());
+//            System.out.println(this.vector.getPQRs(i).getDescripcion());
+//            System.out.println(this.vector.getPQRs(i).getEstado());
+//            System.out.println(this.vector.getPQRs(i).getNombreOrigen());
+//            System.out.println(this.vector.getPQRs(i).getFecha().getFechaCompleta());
+//            System.out.println("\n");
+//        }
+        
+        limpiarCampos();
+        dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +297,20 @@ public class CrearPQRFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox<String> cbxEstado;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblNombreDestino;
+    private javax.swing.JLabel lblNombreObjeto;
+    private javax.swing.JLabel lblNombreOrigen;
+    private javax.swing.JLabel lblSubtitulo;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextArea txtDescripcion;
+    private javax.swing.JTextField txtNombreDestino;
+    private javax.swing.JTextField txtNombreOjeto;
+    private javax.swing.JTextField txtNombreOrigen;
     // End of variables declaration//GEN-END:variables
 }
