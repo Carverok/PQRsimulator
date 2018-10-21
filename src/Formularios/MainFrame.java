@@ -1,9 +1,48 @@
 package Formularios;
 
+import clases.Fecha;
+import clases.PQR;
+
 public class MainFrame extends javax.swing.JFrame {
 
+    private final String EMPTY_CHARACTER = "";
+    private final int INT_CERO = 0;
+    
+    AboutFrame aboutFrame;
+    
     public MainFrame() {
         initComponents();
+        
+        this.aboutFrame = new AboutFrame();
+    }
+    
+    public void limpiarCampos() {
+        txtNomreObjeto.setText(this.EMPTY_CHARACTER);
+        txtNombreDestino.setText(this.EMPTY_CHARACTER);
+        txtDescripcion.setText(this.EMPTY_CHARACTER);
+        txtNombreOrigen.setText(this.EMPTY_CHARACTER);
+        cbxEstado.setSelectedIndex(this.INT_CERO);
+        txtNomreObjeto.requestFocus();
+    }
+    
+    public void capturarCampos(PQR objetoPQR) {
+        objetoPQR.setNombreObjeto(txtNomreObjeto.getText());
+        objetoPQR.setNombreDestino(txtNombreDestino.getText());
+        objetoPQR.setDescripcion(txtDescripcion.getText());
+        objetoPQR.setNombreOrigen(txtNombreOrigen.getText());
+        objetoPQR.setEstado(cbxEstado.getSelectedItem().toString());
+        
+        Fecha fecha = new Fecha();
+        objetoPQR.setFecha(fecha);
+    }
+    
+    public void mostrarPQR(PQR objetoPQR) {
+        System.out.println("getNombreObjeto: " + objetoPQR.getNombreObjeto());
+        System.out.println("getNombreDestino: " + objetoPQR.getNombreDestino());
+        System.out.println("getDescripcion: " + objetoPQR.getDescripcion());
+        System.out.println("getNombreOrigen: " + objetoPQR.getNombreOrigen());
+        System.out.println("getEstado: " + objetoPQR.getEstado());
+        System.out.println("getFecha: " + objetoPQR.getFecha().getFechaCompleta());
     }
 
     @SuppressWarnings("unchecked")
@@ -12,35 +51,75 @@ public class MainFrame extends javax.swing.JFrame {
 
         lblTitulo = new javax.swing.JLabel();
         lblSubtitulo = new javax.swing.JLabel();
-        lblNombreEstudiante = new javax.swing.JLabel();
-        btnCrearPQR = new javax.swing.JButton();
-        btnListarPQR = new javax.swing.JButton();
+        lblNombreObjeto = new javax.swing.JLabel();
+        txtNomreObjeto = new javax.swing.JTextField();
+        lblNombreDestino = new javax.swing.JLabel();
+        txtNombreDestino = new javax.swing.JTextField();
+        lblEstado = new javax.swing.JLabel();
+        cbxEstado = new javax.swing.JComboBox<>();
+        lblDescripcion = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JTextField();
+        lblNombreOrigen = new javax.swing.JLabel();
+        txtNombreOrigen = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnLimpiarCampos = new javax.swing.JButton();
+        lblTituloListado = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPqr = new javax.swing.JTable();
+        btnBorrarPqrs = new javax.swing.JButton();
+        btnAcercaDe = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        lblNombreUniversidad = new javax.swing.JLabel();
-        lblNombreFacultad = new javax.swing.JLabel();
-        lblNombreCarrera = new javax.swing.JLabel();
-        lblNombreCiudad = new javax.swing.JLabel();
-        lblAno = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setText("SIMULADOR DE PQRs");
 
-        lblSubtitulo.setText("Desarrollado por:");
+        lblSubtitulo.setText("Por favor complete los siguientes campos");
 
-        lblNombreEstudiante.setText("Mayra Díaz Rivera");
+        lblNombreObjeto.setText("Nombre persona responsable de la PQR");
 
-        btnCrearPQR.setText("Crear PQR");
-        btnCrearPQR.addActionListener(new java.awt.event.ActionListener() {
+        lblNombreDestino.setText("Nombre persona a quien dirige la PQR");
+
+        lblEstado.setText("Estado de la PQR");
+
+        cbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblDescripcion.setText("Descripción de la PQR");
+
+        txtDescripcion.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        lblNombreOrigen.setText("Firma");
+
+        btnAgregar.setText("Agregar PQR");
+
+        btnLimpiarCampos.setText("Limpiar campos");
+        btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearPQRActionPerformed(evt);
+                btnLimpiarCamposActionPerformed(evt);
             }
         });
 
-        btnListarPQR.setText("Ver PQRs");
-        btnListarPQR.addActionListener(new java.awt.event.ActionListener() {
+        lblTituloListado.setText("LISTADO DE PQRs");
+
+        tblPqr.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblPqr);
+
+        btnBorrarPqrs.setText("Borrar listado");
+
+        btnAcercaDe.setText("Acerca de");
+        btnAcercaDe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarPQRActionPerformed(evt);
+                btnAcercaDeActionPerformed(evt);
             }
         });
 
@@ -51,101 +130,121 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        lblNombreUniversidad.setText("UNIVERSIDAD DE CÓRDOBA");
-
-        lblNombreFacultad.setText("FACULTAD DE INGENIERÍAS");
-
-        lblNombreCarrera.setText("INGENIERÍA DE SISTEMAS");
-
-        lblNombreCiudad.setText("SAHAGÚN - CÓRDOBA");
-
-        lblAno.setText("2018");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 135, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNombreFacultad)
-                    .addComponent(lblNombreUniversidad)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblNombreCiudad))
-                            .addComponent(lblNombreCarrera))))
-                .addGap(131, 131, 131))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
+                        .addGap(339, 339, 339)
                         .addComponent(lblTitulo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblNombreEstudiante)
-                                .addComponent(lblSubtitulo))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnListarPQR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCrearPQR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                        .addGap(344, 344, 344)
+                        .addComponent(lblTituloListado)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblSubtitulo)
+                        .addGap(531, 531, 531))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(197, 197, 197)
-                        .addComponent(lblAno)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBorrarPqrs, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(btnAcercaDe, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDescripcion)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(65, 65, 65)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblNombreOrigen)
+                                    .addComponent(txtNombreOrigen)
+                                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnLimpiarCampos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblNombreObjeto)
+                                    .addComponent(txtNomreObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblNombreDestino)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtNombreDestino)
+                                        .addGap(15, 15, 15)))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEstado)
+                                    .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(15, 15, 15)
                 .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSubtitulo)
                 .addGap(18, 18, 18)
-                .addComponent(lblSubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreObjeto)
+                    .addComponent(lblNombreDestino)
+                    .addComponent(lblEstado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreEstudiante)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(btnCrearPQR)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNomreObjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnListarPQR)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescripcion)
+                    .addComponent(lblNombreOrigen))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTituloListado))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombreOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimpiarCampos)))
                 .addGap(18, 18, 18)
-                .addComponent(btnSalir)
-                .addGap(51, 51, 51)
-                .addComponent(lblNombreUniversidad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreFacultad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreCarrera)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombreCiudad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAno)
-                .addGap(11, 11, 11))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBorrarPqrs)
+                    .addComponent(btnAcercaDe)
+                    .addComponent(btnSalir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnCrearPQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPQRActionPerformed
-        CrearPQRFrame crearPQRFrame = new CrearPQRFrame();
-        crearPQRFrame.setResizable(false);
-        crearPQRFrame.setLocationRelativeTo(null);
-        crearPQRFrame.show();
-    }//GEN-LAST:event_btnCrearPQRActionPerformed
+    private void btnAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaDeActionPerformed
+        this.aboutFrame.setResizable(false);
+        this.aboutFrame.setLocationRelativeTo(null);
+        this.aboutFrame.setAlwaysOnTop(true);
+        this.aboutFrame.show();
+    }//GEN-LAST:event_btnAcercaDeActionPerformed
 
-    private void btnListarPQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPQRActionPerformed
-        VerPQRsFrame verPQRsFrame = new VerPQRsFrame();
-        verPQRsFrame.setResizable(false);
-        verPQRsFrame.setLocationRelativeTo(null);
-        verPQRsFrame.show();
-    }//GEN-LAST:event_btnListarPQRActionPerformed
+    private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnLimpiarCamposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,16 +282,25 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCrearPQR;
-    private javax.swing.JButton btnListarPQR;
+    private javax.swing.JButton btnAcercaDe;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBorrarPqrs;
+    private javax.swing.JButton btnLimpiarCampos;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JLabel lblAno;
-    private javax.swing.JLabel lblNombreCarrera;
-    private javax.swing.JLabel lblNombreCiudad;
-    private javax.swing.JLabel lblNombreEstudiante;
-    private javax.swing.JLabel lblNombreFacultad;
-    private javax.swing.JLabel lblNombreUniversidad;
+    private javax.swing.JComboBox<String> cbxEstado;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblNombreDestino;
+    private javax.swing.JLabel lblNombreObjeto;
+    private javax.swing.JLabel lblNombreOrigen;
     private javax.swing.JLabel lblSubtitulo;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTituloListado;
+    private javax.swing.JTable tblPqr;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtNombreDestino;
+    private javax.swing.JTextField txtNombreOrigen;
+    private javax.swing.JTextField txtNomreObjeto;
     // End of variables declaration//GEN-END:variables
 }
