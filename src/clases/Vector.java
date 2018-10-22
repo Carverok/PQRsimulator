@@ -26,5 +26,5 @@ public class Vector {
 
     public void setPQRs(int posicion, PQR pqr) {
         this.PQRs[posicion] = pqr;
-    }    
+    }
 }

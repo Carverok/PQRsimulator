@@ -50,7 +50,7 @@
                               <Component id="btnBorrarPqrs" min="-2" pref="200" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                               <Component id="btnAcercaDe" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="71" max="32767" attributes="0"/>
                               <Component id="btnSalir" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -82,7 +82,7 @@
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblEstado" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbxEstado" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="cbxEstado" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
@@ -109,8 +109,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="txtNomreObjeto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtNombreDestino" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbxEstado" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -175,21 +175,6 @@
         <Property name="text" type="java.lang.String" value="Estado de la PQR"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbxEstado">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JLabel" name="lblDescripcion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Descripci&#xf3;n de la PQR"/>
@@ -213,6 +198,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar PQR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnLimpiarCampos">
       <Properties>
@@ -252,6 +240,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Borrar listado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarPqrsActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAcercaDe">
       <Properties>
@@ -268,6 +259,20 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbxEstado">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Creada"/>
+            <StringItem index="1" value="En revisi&#xf3;n"/>
+            <StringItem index="2" value="Atendida"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
